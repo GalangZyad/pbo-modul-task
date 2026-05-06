@@ -1,0 +1,161 @@
+using System;
+using System.Collections.Generic;
+
+class Karyawan
+{
+    public string Nama { get; set; }
+    public int Gaji { get; set; }
+
+    public virtual void Kerja()
+    {
+        Console.WriteLine($"{Nama} sedang bekerja");
+    }
+
+    public virtual void InfoKaryawan()
+    {
+        Console.WriteLine($"Nama: {Nama}, Gaji: {Gaji}");
+    }
+}
+
+class Tetap : Karyawan
+{
+    public int Tunjangan { get; set; }
+
+    public int HitungGajiTotal()
+    {
+        return Gaji + Tunjangan;
+    }
+
+    public override void InfoKaryawan()
+    {
+        Console.WriteLine($"Nama: {Nama}, Gaji: {Gaji}, Tunjangan: {Tunjangan}");
+    }
+}
+
+class Kontrak : Karyawan
+{
+    public int Durasi { get; set; }
+
+    public void CekKontrak()
+    {
+        Console.WriteLine($"{Nama} kontrak selama {Durasi} bulan");
+    }
+}
+
+class Manager : Tetap
+{
+    public override void Kerja()
+    {
+        Console.WriteLine($"{Nama} bekerja sebagai Manager");
+    }
+
+    public void Memimpin()
+    {
+        Console.WriteLine($"{Nama} sedang memimpin tim");
+    }
+}
+
+class Staff : Tetap
+{
+    public override void Kerja()
+    {
+        Console.WriteLine($"{Nama} bekerja sebagai Staff");
+    }
+
+    public void KerjakanTugas()
+    {
+        Console.WriteLine($"{Nama} sedang mengerjakan tugas");
+    }
+}
+
+// Magang
+class Magang : Kontrak
+{
+    public override void Kerja()
+    {
+        Console.WriteLine($"{Nama} bekerja sebagai Magang");
+    }
+
+    public void Belajar()
+    {
+        Console.WriteLine($"{Nama} sedang belajar");
+    }
+}
+
+// Freelancer
+class Freelancer : Kontrak
+{
+    public override void Kerja()
+    {
+        Console.WriteLine($"{Nama} bekerja sebagai Freelancer");
+    }
+
+    public void AmbilProyek()
+    {
+        Console.WriteLine($"{Nama} mengambil proyek");
+    }
+}
+
+// Perusahaan
+class Perusahaan
+{
+    public List<Karyawan> daftar = new List<Karyawan>();
+
+    public void TambahKaryawan(Karyawan k)
+    {
+        daftar.Add(k);
+    }
+
+    public void DaftarKaryawan()
+    {
+        foreach (var k in daftar)
+        {
+            k.InfoKaryawan();
+        }
+    }
+}
+
+
+class program
+{
+    static void Main(string[] args)
+    {
+        // a. Buat objek perusahaan
+        Perusahaan perusahaan = new Perusahaan();
+
+        // b. Buat beberapa objek karyawan
+        Manager m = new Manager { Nama = "ANDIKA", Gaji = 8000000, Tunjangan = 2000000 };
+        Staff s = new Staff { Nama = "ZERA", Gaji = 5000000, Tunjangan = 1000000 };
+        Magang mg = new Magang { Nama = "SASA", Gaji = 1000000, Durasi = 6 };
+        Freelancer f = new Freelancer { Nama = "DANI", Gaji = 3000000, Durasi = 3 };
+
+        // c. Tambahkan ke perusahaan
+        perusahaan.TambahKaryawan(m);
+        perusahaan.TambahKaryawan(s);
+        perusahaan.TambahKaryawan(mg);
+        perusahaan.TambahKaryawan(f);
+
+        // d. Tampilkan semua data
+        Console.WriteLine("=== Daftar Karyawan ===");
+        perusahaan.DaftarKaryawan();
+
+        // e. Demonstrasikan polymorphism
+        Console.WriteLine("\n=== Polymorphism ===");
+        Karyawan k1 = m;
+        Karyawan k2 = s;
+        Karyawan k3 = mg;
+        Karyawan k4 = f;
+
+        k1.Kerja();
+        k2.Kerja();
+        k3.Kerja();
+        k4.Kerja();
+
+        // f. Panggil method khusus
+        Console.WriteLine("\n=== Method Khusus ===");
+        m.Memimpin();        // khusus Manager
+        s.KerjakanTugas();   // khusus Staff
+        mg.Belajar();        // khusus Magang
+        f.AmbilProyek();     // khusus Freelancer
+    }
+}
