@@ -124,10 +124,10 @@ class program
         Perusahaan perusahaan = new Perusahaan();
 
         // b. Buat beberapa objek karyawan
-        Manager m = new Manager { Nama = "ANDIKA", Gaji = 8000000, Tunjangan = 2000000 };
-        Staff s = new Staff { Nama = "ZERA", Gaji = 5000000, Tunjangan = 1000000 };
-        Magang mg = new Magang { Nama = "SASA", Gaji = 1000000, Durasi = 6 };
-        Freelancer f = new Freelancer { Nama = "DANI", Gaji = 3000000, Durasi = 3 };
+        Manager m = new Manager { Nama = "ANDIKA", Gaji = 9000000, Tunjangan = 1000000 };
+        Staff s = new Staff { Nama = "ZERA", Gaji = 6000000, Tunjangan = 1000000 };
+        Magang mg = new Magang { Nama = "SASA", Gaji = 2000000, Durasi = 6 };
+        Freelancer f = new Freelancer { Nama = "DANI", Gaji = 4000000, Durasi = 3 };
 
         // c. Tambahkan ke perusahaan
         perusahaan.TambahKaryawan(m);
